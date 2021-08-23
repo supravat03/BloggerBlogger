@@ -1,0 +1,22 @@
+<!-- main content -->
+<div class="showContainer">
+  <!-- <div class="blogContainer" "> -->
+  <div class="listBlogWrap">
+    <% data.forEach(blog=> { %>
+    <div class="listBlogs">
+      <p class="blogTitle"><%= blog.blogTitle %></p>
+      <p class="blogBody">
+        <%= blog.blogBody.substring(0,300) %>
+        <a href="blogs/<%= blog.blogId  %> " style="text-decoration: none"
+          >... read more</a
+        >
+      </p>
+    </div>
+
+    <% });%>
+  </div>
+
+  <!-- </div> -->
+</div>
+
+<!-- main content -->

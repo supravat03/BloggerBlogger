@@ -1,0 +1,20 @@
+<div class="showContainer" style="padding-left: 65px !important;">
+
+    <div class="composeDiv">
+        <h1 class="compose">Update</h1>
+        <form action="/posts/update/<%= data.blogId %>" method="POST">
+            <div>
+                <label>Title</label>
+                <input class="title" value="<%= data.blogTitle %>" type="text" name="blogTitle">
+                <label>Post</label>
+                <textarea class="textArea" name="blogBody"
+                    rows="5" cols="30"><%= data.blogBody %> </textarea>
+            </div>
+            <button class="btn" type="submit" value="post" name="update">Update</button>
+            <button class="btn cancelBtn"><a href="/posts">Cancel</a></button>
+
+
+        </form>
+
+    </div>
+</div>
