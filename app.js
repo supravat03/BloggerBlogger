@@ -1,89 +1,100 @@
-const fs= require("fs");
+const connection = require("./dbConfig");
 const koa = require("koa");
 const koaRouter = require("koa-router");
 const path = require("path");
 const render = require("koa-ejs");
 const serve = require("koa-static");
-const bodyParser= require('koa-bodyparser');
+const bodyParser = require("koa-bodyparser");
 
 const app = new koa();
 const router = new koaRouter();
 
-const data= require("./data");
-
+// var data= require("./data");
 
 render(app, {
-    root: path.join(__dirname, "views"),
-    layout: "layout",
-    viewExt: "html",
-    cache: false,
-    debug: false,
+  root: path.join(__dirname, "views"),
+  layout: "layout",
+  viewExt: "html",
+  cache: false,
+  debug: false,
 });
 
 app.use(bodyParser());
 app.use(serve(__dirname + "/public"));
 app.use(router.routes()).use(router.allowedMethods());
 
+//connect to the Database bloggerblogger
 
+connection.connect((err) => {
+  if (err) console.log(err);
+  else console.log("database connected");
+});
 
+//return promise for any query
 
+const query = (queryString) => {
+  return new Promise((resolve, reject) => {
+    connection.query(queryString, (err, results, fields) => {
+      if (err) {
+        throw err;
+      }
+      resolve(results);
+    });
+  });
+};
 
 router.get("/", async (ctx) => {
-    await ctx.render("index");
+  await ctx.render("index");
 });
+
 router.get("/blogs", async (ctx) => {
-    await ctx.render("blogs",{data: data});
+  const sql = "SELECT * FROM posts";
+  const data = await query(sql);
+  await ctx.render("blogs", { data: data });
 });
 
-router.get("/blogs/:id", async (ctx)=>{
-    const {id}= ctx.params;
-    const particularPost= data.find((blog)=>blog.blogId== Number(id));
-    // console.log(particularPost);
-    await ctx.render("view",{particularPost:particularPost});
-})
+router.get("/blogs/:id", async (ctx) => {
+  const { id } = ctx.params;
+  const sql = `SELECT * FROM posts WHERE postId= ${connection.escape(id)}`;
+  const particularPost = await query(sql);
+  await ctx.render("view", { particularPost: particularPost[0] });
+});
 
+router.get("/posts", async (ctx) => {
+  const sql = "SELECT * FROM posts";
+  const data = await query(sql);
+  await ctx.render("posts", { data: data });
+});
 
-router.get("/posts", async (ctx)=>{
-    await ctx.render("posts",{data: data})
-})
-
-router.get("/posts/update/:id", async (ctx)=>{
-    const {id}= ctx.params;
-    const updateTarget= data.find(blog=> blog.blogId===id);
-    await ctx.render("update",{data: updateTarget})
-    
-})
-.post("/posts/update/:id", async (ctx)=>{
-    const {id}= ctx.params;
-    const{blogTitle,blogBody}= ctx.request.body;
-
-    let targetPost= data.find(blog=> blog.blogId==id);
-    targetPost.blogTitle=blogTitle;
-    targetPost.blogBody= blogBody;
-
+router
+  .get("/posts/update/:id", async (ctx) => {
+    const { id } = ctx.params;
+    const sql = `SELECT * FROM posts WHERE postId= ${connection.escape(id)}`;
+    const updateTarget = await query(sql);
+    await ctx.render("update", { data: updateTarget[0] });
+  })
+  .post("/posts/update/:id", async (ctx) => {
+    const { id } = ctx.params;
+    const { postTitle, postBody } = ctx.request.body;
+    const sql = `UPDATE posts SET postTitle= ${(connection.escape(postTitle))}, postBody= ${connection.escape(postBody)} WHERE postId=${connection.escape(id)} `;
+    await query(sql);
     ctx.redirect("/posts");
-})
-
-
-router.get("/compose", async (ctx)=>{
-    await ctx.render("compose")
-})
-.post("/compose",async (ctx)=>{
-    const{blogTitle,blogBody}= ctx.request.body;
-    console.log(blogBody);
-    const newBlogId= Number(data[data.length-1].blogId)+1;
-    data.push({
-        "blogId":newBlogId,
-        "blogTitle":blogTitle,
-        "blogBody" :blogBody
-    })
+  })
+  .get("/posts/delete/:id", async (ctx) => {
+    const { id } = ctx.params;
+    const sql = `DELETE FROM posts WHERE postId=${connection.escape(id)} `;
+    await query(sql);
+    ctx.redirect("/posts");
+  });
+router
+  .get("/compose", async (ctx) => {
+    await ctx.render("compose");
+  })
+  .post("/compose", async (ctx) => {
+    const { postTitle, postBody } = ctx.request.body;
+    const sql = `INSERT INTO posts (postTitle,postBody) VALUES(${connection.escape(postTitle)},${connection.escape(postBody)})`;
+    await query(sql);
     ctx.redirect("/blogs");
-
-})
-
-
-
-
-
+  });
 
 app.listen(3000, () => console.log("server is running !"));
