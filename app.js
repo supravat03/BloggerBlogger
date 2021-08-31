@@ -55,7 +55,7 @@ router.get("/blogs", async (ctx) => {
 
 router.get("/blogs/:id", async (ctx) => {
   const { id } = ctx.params;
-  const sql = `SELECT * FROM posts WHERE postId= ${connection.escape(id)}`;
+  const sql = `SELECT * FROM posts WHERE post_id= ${connection.escape(id)}`;
   const particularPost = await query(sql);
   await ctx.render("view", { particularPost: particularPost[0] });
 });
@@ -69,20 +69,20 @@ router.get("/posts", async (ctx) => {
 router
   .get("/posts/update/:id", async (ctx) => {
     const { id } = ctx.params;
-    const sql = `SELECT * FROM posts WHERE postId= ${connection.escape(id)}`;
+    const sql = `SELECT * FROM posts WHERE post_id= ${connection.escape(id)}`;
     const updateTarget = await query(sql);
     await ctx.render("update", { data: updateTarget[0] });
   })
   .post("/posts/update/:id", async (ctx) => {
     const { id } = ctx.params;
     const { postTitle, postBody } = ctx.request.body;
-    const sql = `UPDATE posts SET postTitle= ${(connection.escape(postTitle))}, postBody= ${connection.escape(postBody)} WHERE postId=${connection.escape(id)} `;
+    const sql = `UPDATE posts SET post_title= ${(connection.escape(postTitle))}, post_body= ${connection.escape(postBody)} WHERE post_id=${connection.escape(id)} `;
     await query(sql);
     ctx.redirect("/posts");
   })
   .get("/posts/delete/:id", async (ctx) => {
     const { id } = ctx.params;
-    const sql = `DELETE FROM posts WHERE postId=${connection.escape(id)} `;
+    const sql = `DELETE FROM posts WHERE post_id=${connection.escape(id)} `;
     await query(sql);
     ctx.redirect("/posts");
   });
@@ -92,7 +92,7 @@ router
   })
   .post("/compose", async (ctx) => {
     const { postTitle, postBody } = ctx.request.body;
-    const sql = `INSERT INTO posts (postTitle,postBody) VALUES(${connection.escape(postTitle)},${connection.escape(postBody)})`;
+    const sql = `INSERT INTO posts (post_title,post_body) VALUES(${connection.escape(postTitle)},${connection.escape(postBody)})`;
     await query(sql);
     ctx.redirect("/blogs");
   });

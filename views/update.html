@@ -2,13 +2,13 @@
 
     <div class="composeDiv">
         <h1 class="compose">Update</h1>
-        <form action="/posts/update/<%= data.postId %>" method="POST">
+        <form action="/posts/update/<%= data.post_id %>" method="POST">
             <div>
                 <label>Title</label>
-                <input class="title" value="<%- data.postTitle %>" type="text" name="postTitle">
+                <input class="title" value="<%- data.post_title %>" type="text" name="postTitle">
                 <label>Post</label>
                 <textarea class="textArea" name="postBody"
-                    rows="5" cols="30"><%- data.postBody %> </textarea>
+                    rows="5" cols="30"><%- data.post_body %> </textarea>
             </div>
             <button class="btn" type="submit" value="post" name="update">Update</button>
             <button class="btn cancelBtn"><a href="/posts">Cancel</a></button>

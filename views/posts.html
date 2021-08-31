@@ -4,14 +4,14 @@
         <% data.forEach(post=> { %>
             <div class="listBlogs">
                 <p class="blogTitle">
-                    <%- post.postTitle %>
+                    <%- post.post_title %>
                 </p>
                 <p class="blogBody">
-                    <%- post.postBody.substring(0,300) %>
-                        <a href="blogs/<%= post.postId  %> " style="text-decoration: none;">... read more</a>
+                    <%- post.post_body.substring(0,300) %>
+                        <a href="blogs/<%= post.post_id  %> " style="text-decoration: none;">... read more</a>
                 </p>
-                <button class="btn"><a href="/posts/update/<%= post.postId  %>">Edit</a></button>
-                <button class="btn cancelBtn"><a href="/posts/delete/<%= post.postId  %>">Delete</a></button>
+                <button class="btn"><a href="/posts/update/<%= post.post_id  %>">Edit</a></button>
+                <button class="btn cancelBtn"><a href="/posts/delete/<%= post.post_id  %>">Delete</a></button>
 
             </div>
 

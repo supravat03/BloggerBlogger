@@ -4,10 +4,10 @@
   <div class="listBlogWrap">
     <% data.forEach(post=> { %>
     <div class="listBlogs">
-      <p class="blogTitle"><%- post.postTitle %></p>
+      <p class="blogTitle"><%- post.post_title %></p>
       <p class="blogBody">
-        <%- post.postBody.substring(0,300) %>
-        <a href="blogs/<%= post.postId  %> " style="text-decoration: none"
+        <%- post.post_body.substring(0,300) %>
+        <a href="blogs/<%= post.post_id  %> " style="text-decoration: none"
           >... read more</a
         >
       </p>
