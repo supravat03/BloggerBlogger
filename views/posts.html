@@ -8,10 +8,10 @@
                 </p>
                 <p class="blogBody">
                     <%- post.post_body.substring(0,300) %>
-                        <a href="blogs/<%= post.post_id  %> " style="text-decoration: none;">... read more</a>
+                        <a href="blogs/<%= post._id  %> " style="text-decoration: none;">... read more</a>
                 </p>
-                <button class="btn"><a href="/posts/update/<%= post.post_id  %>">Edit</a></button>
-                <button class="btn cancelBtn"><a href="/posts/delete/<%= post.post_id  %>">Delete</a></button>
+                <button class="btn"><a href="/posts/update/<%= post._id  %>">Edit</a></button>
+                <button class="btn cancelBtn"><a href="/posts/delete/<%= post._id  %>">Delete</a></button>
 
             </div>
 

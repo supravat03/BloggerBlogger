@@ -2,7 +2,7 @@
 
     <div class="composeDiv">
         <h1 class="compose">Update</h1>
-        <form action="/posts/update/<%= data.post_id %>" method="POST">
+        <form action="/posts/update/<%= data._id %>" method="POST">
             <div>
                 <label>Title</label>
                 <input class="title" value="<%- data.post_title %>" type="text" name="postTitle">
