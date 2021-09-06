@@ -315,3 +315,61 @@ header ul li a{
         height: 165px !important;
     }
   }
+
+
+      /*------------------------ 
+          LogIn & Regestration Form
+    -----------------------------*/
+
+
+      .login_container{
+          max-width: 440px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin: 10px auto 20px auto;
+      }
+      .login_container .title {
+        height: 90px;
+        background: #16a085;
+        border-radius: 5px ;
+        color: #fff;
+        font-size: 30px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login_container form input{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        padding: 10px;
+        margin: 10px auto;
+        border-radius: 5px;
+        border: 1px solid lightgrey;
+        font-size: 16px;
+      }
+
+      .login_form, .login_form button{
+          width: 350px;
+      }
+
+      .login_form button{
+          padding: 10px 0;
+          margin: 10px 0;
+          color: #fff;
+          font-size: 20px;
+          font-weight: 500;
+          background: #16a085;
+          border: 1px solid #16a085;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      .signup-link a{
+        color: #16a085;
+          text-decoration: none;
+      }

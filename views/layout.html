@@ -11,17 +11,19 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body>
     <header class="header">
-        
+
         <div class="navWrap ">
             <a href="/" class="Name">BloggerBlogger</a>
-        <!-- <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a> -->
-            
+            <!-- <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a> -->
+
             <ul class="Hide">
                 <li><a href="/">Home</a></li>
                 <li><a href="/blogs">Blogs</a></li>
@@ -29,41 +31,49 @@
                 <!-- <li><a href="/about">About</a></li> -->
                 <li><a href="/posts">My Posts</a></li>
             </ul>
-           
+            <ul class="Hide">
+                <li><a href="/register" class="register">Register</a></li>
+                <% if(logStatus){ %>
+                    <li><a href="/logout " class="login">LogOut</a></li>
+                <% }else{ %> 
+                <li><a href="/login" class="login">LogIn</a></li>
+                <%  } %> 
+            </ul>
+
         </div>
-      
+
     </header>
-<div class="hiddenDiv" style="height: 65px;display: hidden; "></div>
+    <div class="hiddenDiv" style="height: 65px;display: hidden; "></div>
+    
+    <%- body %>
 
-    <%- body  %> 
+        <footer>
+            <div class="footer">
+                <div class="row">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-youtube"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                </div>
 
-    <footer>
-        <div class="footer">
-            <div class="row">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-youtube"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
+                <div class="row">
+                    <ul>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Our Services</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Career</a></li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    Copyright © 2021 - All rights reserved || Designed By: Anonymous
+                </div>
             </div>
+        </footer>
+        <script src="../../index.js"></script>
 
-            <div class="row">
-                <ul>
-                    <li><a href="#">Contact us</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Career</a></li>
-                </ul>
-            </div>
-
-            <div class="row">
-                Copyright © 2021 - All rights reserved || Designed By: Anonymous
-            </div>
-        </div>
-    </footer>
-    <script src="../../index.js"></script>
-
-    <!-- <script>
+        <!-- <script>
         const myFunction=()=>{
             console.log("ok");
             document.querySelector("ul").style.display="none"
